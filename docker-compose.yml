@@ -1,0 +1,54 @@
+version: '3.4'
+
+x-vars:
+  volumes:
+    frontend: &volumes-frontend
+      - ./kbpartpicker/src:/opt/frontend/src
+      - ./kbpartpicker/public:/opt/frontend/public
+      - ./kbpartpicker/node_modules:/opt/frontend/node_modules
+    backend: &volumes-backend
+      - ./kbpartpicker-backend/api:/opt/backend/api
+      - ./kbpartpicker-backend/app:/opt/backend/app
+      - ./kbpartpicker-backend/config:/opt/backend/config
+      - ./kbpartpicker-backend/scrapers:/opt/backend/scrapers
+      - ./kbpartpicker-backend/tests:/opt/backend/tests
+      - ./kbpartpicker-backend/utils:/opt/backend/utils
+      - ./kbpartpicker-backend/vendors:/opt/backend/vendors
+  env-files:
+    frontend: &env-files-frontend
+      - ./kbpartpicker/.env.development.local
+    backend: &env-files-backend
+      - ./kbpartpicker-backend/config/.env
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - ./config/*.sql:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=kbpp
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=kbpartpicker
+    ports:
+      - 5432:5432
+    
+  web:
+    image: scootyboots/kbpartpicker:latest
+    build:
+      context: kbpartpicker
+      dockerfile: Dockerfile
+    user: kbpp
+    volumes: *volumes-frontend
+    env_file: *env-files-frontend
+    ports:
+      - 3000:3000
+    stdin_open: true
+
+  api:
+    image: vimiomori/kbpartpicker-backend:latest
+    build: ./kbpartpicker-backend
+    depends_on:
+      - db
+    user: kbpp
+    volumes: *volumes-backend
+    env_file: *env-files-backend
