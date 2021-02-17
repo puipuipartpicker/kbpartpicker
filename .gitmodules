@@ -1,0 +1,6 @@
+[submodule "kbpartpicker"]
+	path = kbpartpicker
+	url = git@github.com:scootyboots/kbpartpicker.git
+[submodule "kbpartpicker-backend"]
+	path = kbpartpicker-backend
+	url = git@github.com:vimiomori/kbpartpicker-backend.git
