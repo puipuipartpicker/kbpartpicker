@@ -59,4 +59,4 @@ services:
       - 5000:5000
     command: >
       bash -c "python scrape.py
-      && gunicorn -b 0.0.0.0:5000 run:app"
+      && gunicorn --reload -b 0.0.0.0:5000 run:app"
