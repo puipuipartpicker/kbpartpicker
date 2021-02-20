@@ -3,22 +3,22 @@ version: '3.4'
 x-vars:
   volumes:
     frontend: &volumes-frontend
-      - ./kbpartpicker/src:/app/src
-      - ./kbpartpicker/public:/app/public
-      - ./kbpartpicker/node_modules:/app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/node_modules:/app/node_modules
     backend: &volumes-backend
-      - ./kbpartpicker-backend/api:/api/api
-      - ./kbpartpicker-backend/app:/api/app
-      - ./kbpartpicker-backend/config:/api/config
-      - ./kbpartpicker-backend/scrapers:/api/scrapers
-      - ./kbpartpicker-backend/tests:/api/tests
-      - ./kbpartpicker-backend/utils:/api/utils
-      - ./kbpartpicker-backend/vendors:/api/vendors
+      - ./backend/api:/api/api
+      - ./backend/app:/api/app
+      - ./backend/config:/api/config
+      - ./backend/scrapers:/api/scrapers
+      - ./backend/tests:/api/tests
+      - ./backend/utils:/api/utils
+      - ./backend/vendors:/api/vendors
   env-files:
     frontend: &env-files-frontend
-      - ./kbpartpicker/.env.development.local
+      - ./frontend/.env.development.local
     backend: &env-files-backend
-      - ./kbpartpicker-backend/config/.env
+      - ./backend/config/.env
 
 services:
   db:
@@ -35,7 +35,7 @@ services:
     
   web:
     build:
-      context: kbpartpicker
+      context: frontend
       dockerfile: Dockerfile
     user: kbpp
     volumes: *volumes-frontend
@@ -43,13 +43,13 @@ services:
     ports:
       - 3000:3000
     stdin_open: true
-    links:
+    links:  # delete
       - api
     command: >
       bash -c "yarn && yarn dev"
 
   api:
-    build: ./kbpartpicker-backend
+    build: ./backend
     depends_on:
       - db
     user: kbpp
