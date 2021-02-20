@@ -45,6 +45,8 @@ services:
     stdin_open: true
     links:
       - api
+    command: >
+      bash -c "yarn && yarn dev"
 
   api:
     build: ./kbpartpicker-backend
