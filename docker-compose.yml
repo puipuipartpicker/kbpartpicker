@@ -44,10 +44,6 @@ services:
     ports:
       - 3000:3000
     stdin_open: true
-    links:  # delete
-      - api
-    command: >
-      bash -c "yarn && yarn dev"
 
   api:
     build: ./backend
