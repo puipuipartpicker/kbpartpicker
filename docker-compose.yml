@@ -19,13 +19,13 @@ x-vars:
     frontend: &env-files-frontend
       - ./frontend/.env.development.local
     backend: &env-files-backend
-      - ./backend/config/.env
+      - ./backend/.env
 
 services:
   db:
     image: postgres:latest
-    volumes:
-      - ./config/kbpartpicker.sql:/docker-entrypoint-initdb.d/10-init.sql
+    # volumes:
+    #   - ./config/kbpartpicker.sql:/docker-entrypoint-initdb.d/10-init.sql
     environment:
       - POSTGRES_USER=kbpp
       - POSTGRES_PASSWORD=password
