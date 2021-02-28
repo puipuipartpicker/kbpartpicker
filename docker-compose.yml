@@ -10,6 +10,7 @@ x-vars:
       - ./backend/api:/api/api
       - ./backend/app:/api/app
       - ./backend/config:/api/config
+      - ./backend/models:/api/models
       - ./backend/scrapers:/api/scrapers
       - ./backend/tests:/api/tests
       - ./backend/utils:/api/utils
@@ -24,8 +25,6 @@ x-vars:
 services:
   db:
     image: postgres:latest
-    # volumes:
-    #   - ./config/kbpartpicker.sql:/docker-entrypoint-initdb.d/10-init.sql
     environment:
       - POSTGRES_USER=kbpp
       - POSTGRES_PASSWORD=password
