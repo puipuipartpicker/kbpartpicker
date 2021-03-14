@@ -37,8 +37,7 @@ services:
   web:
     build:
       context: frontend
-      dockerfile: Dockerfile
-    # user: kbpp
+      dockerfile: Dockerfile_dev
     volumes: *volumes-frontend
     env_file: *env-files-frontend
     environment:
