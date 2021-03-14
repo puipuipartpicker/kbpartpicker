@@ -38,9 +38,11 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
-    user: kbpp
+    # user: kbpp
     volumes: *volumes-frontend
     env_file: *env-files-frontend
+    environment:
+      - PORT=3000
     ports:
       - 3000:3000
     stdin_open: true
