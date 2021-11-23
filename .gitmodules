@@ -4,3 +4,6 @@
 [submodule "kbpartpicker-backend"]
 	path = backend
 	url = git@github.com:vimiomori/kbpartpicker-backend.git
+[submodule "api"]
+	path = api
+	url = git@github.com:puipuipartpicker/kbpartpicker-api.git
