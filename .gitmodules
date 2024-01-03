@@ -2,7 +2,7 @@
 	path = frontend
 	url = git@github.com:scootyboots/kbpartpicker.git
 [submodule "kbpartpicker-backend"]
-	path = backend
+	path = worker
 	url = git@github.com:vimiomori/kbpartpicker-backend.git
 [submodule "api"]
 	path = api
